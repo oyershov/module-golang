@@ -12,7 +12,9 @@ type Block struct {
 /*Info contains data the nodes send to each other
  */
 type Info struct {
-	Msg      string
-	ChainLen int
-	Chain    *b.Blockchain
+	Len    int
+	Sender string
+	Mcode  string
+	//Blocks []Block
+	Chain *b.Blockchain
 }

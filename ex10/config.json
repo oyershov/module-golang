@@ -1,12 +1,15 @@
 {
-	"Total": 1,
+	"Total": 2,
 	"Ids": [
-		1
+		1,
+    2
 	],
   "Names": [
-    "Alexander"
+    "Some node",
+    "Another node"
   ],
 	"Adds": [
-		"tcp://10.30.8.32:8080"
+		"127.0.0.1:8001",
+    "127.0.0.1:8002"
 	]
 }

@@ -12,29 +12,33 @@ type Server struct {
 	host string
 }
 
+var servers = [...]string{"127.0.0.1:8001", "127.0.0.1:8002", "127.0.0.1:8003"}
+
 func CreateServer(id int, name string, host string) *Server {
 	return &Server{id, name, host}
 }
 
 func (server *Server) Send(req *Info) {
 
-	conn, err := net.Dial("tcp", "127.0.0.1:8001")
-	//conn, err := net.Dial("tcp", "10.30.8.32:8080")
+	for _, s := range servers {
+		conn, err := net.Dial("tcp", s)
+		//conn, err := net.Dial("tcp", "10.30.8.105:8080")
 
-	if err != nil {
-		fmt.Println("Err: ", err)
-		return
+		if err != nil {
+			fmt.Println("Err: ", err)
+			return
+		}
+
+		encoder := json.NewEncoder(conn)
+		e := encoder.Encode(*req)
+
+		fmt.Println("Encode error: ", e)
+		conn.Close() // we're finished
 	}
-
-	encoder := json.NewEncoder(conn)
-	e := encoder.Encode(*req)
-
-	fmt.Println("Encode error: ", e)
-	conn.Close() // we're finished
 }
 
-func (server *Server) Receive() {
-	ln, err := net.Listen("tcp", ":8085")
+func (server *Server) Receive(p string) {
+	ln, err := net.Listen("tcp", p)
 	if err != nil {
 		fmt.Println("Can`t create server")
 	}
