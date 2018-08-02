@@ -12,7 +12,7 @@ import (
 func TestFibonacci(t *testing.T) {
 	test := assert.New(t)
 
-	cmd := exec.Command("./client")
+	cmd := exec.Command("./client/client")
 
 	stdin, err := cmd.StdinPipe()
 	test.NoError(err, "can't pipe stdin")
